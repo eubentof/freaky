@@ -1,0 +1,139 @@
+[FistNameInput]
+component:
+  states: VALID | EMPTY | INVALID:TO_SHORT | INVALID:TO_LONG
+  data: 
+    
+  interface:
+    
+
+
+[LastNameInput]
+component:
+  states: EMPTY | VALID | INVALID:(TO_SHORT | TO_LONG)
+  data: 
+    lastname: string
+  interface:
+    .form-input
+      label "Last Name"
+      input :lastname
+      span.error :if="$(INVALID:TO_SHORT)" value="Last name must have at least 3 characters"
+      span.error :if="$(INVALID:TO_LONG)" value="Last name must have less than 50 characters"
+  conditions:
+    EMPTY: len(lastname) == 0
+    INVALID
+      | TO_SHORT: len(lastname) < 3)
+      | TO_LONG: len(lastname) > 50
+    VALID: !$(EMPTY) && !$(INVALID)
+
+
+[EmailInput]
+component:
+  states: EMPTY | VALID | INVALID
+  data: 
+    email: string
+  interface:
+    .form-input
+      label "Email"
+      input :email
+      span.error :if="$(INVALID)" value="Email is invalid"
+  conditions:
+    EMPTY: len(email) == 0
+    INVALID: match(email, /[a-zA-Z]@[a-zA-Z].[com]]/)
+    VALID: !$(EMPTY) && !$(INVALID)
+
+[PhoneInput]
+component:
+  states: EMPTY | VALID | INVALID
+  data: 
+    fistname: string
+  interface:
+    .form-input
+      label "Phone"
+      input :phone
+      span.error :if="$(INVALID:NOT_A_NUMBER)" value="Phone must be a number"
+  conditions:
+    EMPTY: len(phone) == 0
+    INVALID:NOT_A_NUMBER: NaN(phone)
+    VALID: !$(EMPTY) && !$(INVALID)
+
+[UserDataForm]
+component:
+  states: EMPTY | VALID | INVALID
+  data:
+    fistname: 
+      | type(string) 
+      | default("Filipe") 
+      | @onBlur(validateFirstName)
+    lastname: type(string) default("Bento") @onBlur(validateFirstName)
+    email: type(email) @onBlur(validateFirstName)
+    phone: type(phone) @onBlur(validateFirstName)
+  interface: 
+    form
+      .form-input
+        label "Fist Name"
+        input :fistname
+        .error
+          span :visible($firstName.EMPTY)            value="Fisrt name is required"
+          span :visible($firstName.INVALID:TO_SHORT) value="Fisrt name must have at least 3 characters"
+          span :visible($firstName.INVALID:TO_LONG)  value="Fisrt name must have less than 50 characters"
+      LastNameInput @lastname=$f.lastname 
+      EmailInput @email=$f.email 
+      PhoneInput @phone=$f.phone 
+  methods:
+    validateFirstName():
+      if (len(fistname) == 0)) $(EMPTY)
+      if (len(fistname) < 3))  $(INVALID:TO_SHORT)
+      if (len(fistname) > 50)) $(INVALID:TO_LONG)
+      $(VALID)
+      
+data:
+  formdata: object
+    | firstname: string
+    | lastname: string
+    | email: string
+    | phone: string
+
+
+ 
+  firstname:
+    #initial
+    VALIDATING > INVALID
+      | TO_SHORT: nameIsTooShort(f.firstname)
+      | TO_LONG: nameIsTooLong(f.firstname)
+    VALIDATING > VALID: !$f('firstname', INVALID)
+    VALIDATING > EMPTY: len(f.firstname) == 0
+  lastname:
+    #initial
+    VALIDATING > INVALID
+     | TO_SHORT: nameIsTooShort(f.lastname)
+     | TO_LONG: nameIsTooLong(f.lastname)
+    VALIDATING > VALID: !$f('lastname', INVALID)
+    VALIDATING > EMPTY: len(f.lastname) == 0
+  email:
+    #initial
+    VALIDATING > INVALID: match(f.email, /[a-zA-Z]@[a-zA-Z].[com]]/)
+    VALIDATING > EMPTY: len(f.email) == 0
+  phone:
+    #initial
+    VALIDATING > INVALID
+     | NOT_A_NUMBER: NaN(f.phone)
+    VALIDATING > VALID: !$f('phone', INVALID)
+    VALIDATING > EMPTY: len(f.phone) == 0
+methods:
+  nameIsTooShort(value): len(value) < 3
+  nameIsTooLong(value): len(value) > 50
+
+styles[inset]:
+  .form-input:
+    boder: 1px solid black
+    boder-rounded: 10px
+
+    label:
+      font-size: 12px
+
+    input:
+      font-size: 15px
+    
+    .error:
+      color: red
+

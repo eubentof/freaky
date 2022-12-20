@@ -1,0 +1,8 @@
+imports:
+  Input: "./components/form-imputs/Input.fk"
+
+interface:
+  form:
+    Input #name
+    Input #email
+    Input #phone

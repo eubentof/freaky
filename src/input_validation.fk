@@ -1,0 +1,36 @@
+interface: 
+  .form-input
+    label "Name"
+    input :name
+      span.error if=$name(INVALID:TO_SHORT) value="Name must have at least 3 characters"
+      span.error if=$name(INVALID:TO_LONG) value="Name must have less than 50 characters"
+
+data:
+  name: 
+    type: string
+    initialState: EMPTY
+    emitOn: VALID
+
+states: 
+  name:
+    EMPTY > VALIDATING: event(ON_BLUR)
+    VALIDATING > INVALID:
+      TO_SHORT: name.length < 3
+      TO_LONG: name.length > 50
+    VALIDATING > EMPTY: name.length == 0
+    VALIDATING > VALID: !$name('INVALID')
+
+styles[inset]:
+  .form-input:
+    boder: 1px solid black
+    boder-rounded: 10px
+
+    label:
+      font-size: 12px
+
+    input:
+      font-size: 15px
+    
+    .error:
+      color: red
+

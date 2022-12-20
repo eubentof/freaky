@@ -1,0 +1,31 @@
+# import:
+#  Error: frozen("https://github.com/eubentof/franky/components/Error.component.fk")
+
+[Error]
+  data:
+    message:
+      type: text
+      prop: true
+  interface:
+    span text(size: 10px, color: red) {$message}
+
+[Container]
+    {children}
+  
+
+[Input]
+  data:
+    name: text
+  interface:
+    div boder(size: 1px, type: solid, color: black, rouded: 10px) @cursorIn:scale(1.2)
+      label("Name") text(size: 12px)
+      input $name text(size: 12px) @minLen(2, "TO_LONG") @maxLen(10, "TO_SHORT")
+      Error("Name must have more than 2 characters") if:$name("TO_LONG")
+      Error("Name must have less than 10 characters") if:$name("TO_SHORT")
+
+  script[python]:
+
+
+
+export: Input
+  
