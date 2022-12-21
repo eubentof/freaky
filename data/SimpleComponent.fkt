@@ -1,0 +1,10 @@
+div border(size: 1px, color: red)
+  section
+    div
+      label
+      input
+      div
+        span
+      span
+    span
+  span

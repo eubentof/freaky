@@ -1,0 +1,8 @@
+%Container:
+  div boder(size: 1px, type: solid, color: black)
+    section boder(size: 2px, type: solid, color: red, rouded: 10px) padding(h: 20px)
+      div margin(top: 2)
+        label id(nameLabel) data($name) 
+        input name(user-name)
+        div margin(v: 10px)
+          span text(color: blue, thickness: light)

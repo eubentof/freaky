@@ -1,9 +1,0 @@
-[export]
-%Container:
-  div
-    section
-      div
-        label
-        input
-        div
-          span
