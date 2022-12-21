@@ -54,6 +54,9 @@ function buildSegmentNode(segments: string[], depth = 0): SegmentNode[] {
 
     if (segment.startsWith('  '.repeat(depth))) {
       const segmentName = segment.trim()
+
+      if (!segmentName) return
+
       if (segmentNode.segment) {
         nthDepthSegments.push(segmentNode)
         segmentNode = { segment: segmentName, childen: [] }
