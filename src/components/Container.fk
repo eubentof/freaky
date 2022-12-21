@@ -1,14 +1,5 @@
-#import:
-
 %Container:
   div boder(size: 1px, type: solid, color: black, rouded: 10px)
-    {content}
-
-ContainerState:
-  $name: text
-  interface:
-    Container(content: name)
-    Container(content: name)
     section
       div
         label
@@ -16,8 +7,5 @@ ContainerState:
         div
           span
 
-
-          
-
 export:
-  ContainerState
+  Container
