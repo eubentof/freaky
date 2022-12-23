@@ -65,7 +65,7 @@ const tokenSymbolMap: { [char: string]: TokenType } = {
   '.': TokenSymbolType.Dot,
   '$': TokenSymbolType.DolarSign,
   '\'': TokenSymbolType.SimpleQuote,
-  '"': TokenSymbolType.SimpleQuote,
+  '"': TokenSymbolType.DoubleQuote,
   '!': TokenSymbolType.Exclamation,
 }
 

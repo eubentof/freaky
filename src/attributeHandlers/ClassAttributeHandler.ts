@@ -2,7 +2,7 @@ import { TagAttributeHandler } from "../tagAttributeHandlers.ts"
 import { TokenSymbolType } from "../tokenizer.ts"
 import { TagNode } from "../utils/parser.utils.ts"
 import { AttributeNode } from "../utils/parser.utils.ts"
-import { errorInLine } from "../utils/utils.ts"
+import { checkMissingQuote, errorInLine } from "../utils/utils.ts"
 
 
 export class ClassAttributeHandler implements TagAttributeHandler {
@@ -19,17 +19,22 @@ export class ClassAttributeHandler implements TagAttributeHandler {
       if (token.type != TokenSymbolType.SimpleQuote)
         throw errorInLine(rootToken, `Missing quote.`)
 
+      const quoteType = token.type
+
       current++
 
       while (node.children[current]) {
         token = node.children[current];
 
-        if (token.type == TokenSymbolType.Comma) throw errorInLine(rootToken, 'Missing closing quote.')
+        if (token.type == TokenSymbolType.Comma) checkMissingQuote(token, quoteType)
+
         current++
 
         if (token.type == TokenSymbolType.SimpleQuote) break
         className += token.value
       }
+
+      // checkMissingQuote(token, quoteType)
 
       const CSS_CLASS_NAME = /^[_a-zA-Z][_\-a-zA-Z0-9]+$/gm
       if (!CSS_CLASS_NAME.test(className))

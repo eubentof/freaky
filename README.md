@@ -13,5 +13,7 @@ TODO:
   - [ ] Tags with atributes
     - [x] id
     - [x] class
-    - [ ] data
+    - [x] data
+- [x] Fazer o match do single e double quote
 - [ ] Listar as tags e suas propriedades
+- [ ] Verificar tag duplicada
