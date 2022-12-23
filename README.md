@@ -1,0 +1,17 @@
+TODO:
+- [x] Tokenize html tags
+- [x] Generate ASL Tree
+- [x] Transverse tree
+- [x] Compile html
+  - [x] Only tags
+    - [x] Inline tags
+    - [x] Regular tags
+  - [x] Add position, line and col to tokens
+  - [x] tokenize atributtes
+  - [x] tokenize nested atributtes
+  - [x] ignore comments //
+  - [ ] Tags with atributes
+    - [x] id
+    - [x] class
+    - [ ] data
+- [ ] Listar as tags e suas propriedades

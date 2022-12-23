@@ -1,10 +1,18 @@
-div border(size: 1px, color: red)
-  section
-    div
-      label
-      input
+div 
+  | id('asd')
+  | class('element-A', 'elementB')
+  | data(dname: 'as')
+  //- | data(dname: 'Filipe Bento', dphone: '31982741441')
+  section id('assction')
+    span id('asspan')
+      p
+    input
+  main
+    header
       div
-        span
-      span
-    span
-  span
+        video
+          img id('user-profile')
+        textarea
+      select
+header
+  
