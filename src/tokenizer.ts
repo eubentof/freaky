@@ -1,76 +1,19 @@
-import { isAttrubute, isTag, isUnity } from "./utils/tokenNameMap.ts";
+import { getWordToken, tokenSymbolMap } from "./interfaces/tokens.map.ts";
+import { Token, TokenNode, TokenType } from "./interfaces/tokens.ts";
+import { ComponentNode } from "./utils/interfaces.ts";
+import { errorInLine } from "./utils/utils.ts";
 
 const WORDS = /\w/i;
 const WHITESPACE = /\s/;
 const NUMBERS = /[0-9]/;
-const NEXT_LINE_ATTR = '|';
+const NEXT_LINE_CHAR = '|';
+const COMMENT_LINE_CHAR = '/';
+const QUOTE = /'|"/;
 
-export interface Token {
-  type: TokenType,
-  value: string,
-  tab: number,
-  position: number,
-  col: number,
-  line: number,
-}
+export function tokenizer(component: ComponentNode): ComponentNode {
 
-export enum TokenPrimitiveType {
-  Number = "number",
-  Name = "name",
-  Tag = "tag",
-  Attribute = "attr",
-  Unity = "unity",
-  Indentation = "tab",
-}
+  if (!component.content) return component
 
-export enum TokenSymbolType {
-  LeftParentesis = "l_paren",
-  RightParentesis = "r_paren",
-  LeftBracket = "l_bracket",
-  RightBracket = "r_bracket",
-  LeftBrace = "l_brace",
-  RightBrace = "r_brace",
-  Comma = "comma",
-  Colon = "colon",
-  Percentage = "pctg",
-  Adition = "add",
-  Dash = "dash",
-  LeftSlash = "l_slash",
-  RightSlath = "r_slash",
-  Multiplication = "multi",
-  Dot = "dot",
-  DolarSign = "ds",
-  SimpleQuote = "s_quote",
-  DoubleQuote = "d_quote",
-  Exclamation = "xclt",
-}
-
-export type TokenType = TokenPrimitiveType | TokenSymbolType
-
-const tokenSymbolMap: { [char: string]: TokenType } = {
-  '(': TokenSymbolType.LeftParentesis,
-  ')': TokenSymbolType.RightParentesis,
-  '[': TokenSymbolType.LeftBracket,
-  ']': TokenSymbolType.RightBracket,
-  '{': TokenSymbolType.LeftBrace,
-  '}': TokenSymbolType.RightBrace,
-  ',': TokenSymbolType.Comma,
-  ':': TokenSymbolType.Colon,
-  '%': TokenSymbolType.Percentage,
-  '+': TokenSymbolType.Adition,
-  '-': TokenSymbolType.Dash,
-  '/': TokenSymbolType.LeftSlash,
-  '\\': TokenSymbolType.RightSlath,
-  '*': TokenSymbolType.Multiplication,
-  '.': TokenSymbolType.Dot,
-  '$': TokenSymbolType.DolarSign,
-  '\'': TokenSymbolType.SimpleQuote,
-  '"': TokenSymbolType.DoubleQuote,
-  '!': TokenSymbolType.Exclamation,
-}
-
-export function tokenizer(input: string): Token[] {
-  const tokens: Token[] = []
   let current = 0;
   let line = 1;
   let col = 0;
@@ -78,16 +21,22 @@ export function tokenizer(input: string): Token[] {
   let tab = 0;
   let previousToken: Token | undefined = undefined
 
+  const input = component.content
+
+  if (!component.tokens) component.tokens = []
+
+
   while (current < input.length) {
-    let c = input[current];
+    const c = input[current];
 
-    const symbolType = tokenSymbolMap[c]
+    if (!c) break;
 
-    // Ignore line comments
-    if (c == '/') {
+    // Ignore inline comments
+    if (c == COMMENT_LINE_CHAR) {
       const nextChar = input[current + 1]
-      col++
-      if (nextChar == '/') {
+      if (nextChar == COMMENT_LINE_CHAR) {
+        col++
+        let c = input[current++]
         while (c !== '\n') {
           c = input[current++];
         }
@@ -97,47 +46,66 @@ export function tokenizer(input: string): Token[] {
       }
     }
 
-    if (c && symbolType) {
-      const token = {
-        type: symbolType,
-        value: c,
-        tab,
-        position: current - 1,
-        col,
+    // Check for strings
+    if (QUOTE.test(c)) {
+      const quote = c;
+      let value = ''
+      current++
+      while (input[current] !== '\n' && input[current] !== quote) value += input[current++];
+
+      col += value.length
+
+      if (input[current] == '\n') throw errorInLine({ line, col }, "Missing closing quote")
+
+      const token: Token = {
+        type: TokenType.String,
+        value,
         line,
+        col,
+        tab,
+        position: current - value.length,
       }
 
-      tokens.push(token);
+      component.tokens.push(token);
+      previousToken = token
+      current++;
+      continue;
+    }
+
+    // Check for symble tokens
+    const tokenSymbleHandler = tokenSymbolMap[c]
+    if (tokenSymbleHandler) {
+      const position = current - 1
+      const token: Token = tokenSymbleHandler({ tab, position, col, line })
+      component.tokens.push(token);
       previousToken = token
       current++;
       col++;
       continue;
     }
 
-    if (c == NEXT_LINE_ATTR) {
+    if (c == NEXT_LINE_CHAR) {
       current++
       col++;
       if (previousToken) tab = previousToken.tab
       continue;
     }
 
+    // Check for numbers
     if (NUMBERS.test(c)) {
       let value = '';
-      while (NUMBERS.test(c)) {
-        value += c;
-        c = input[++current];
-      }
+      while (NUMBERS.test(input[current])) value += input[current++];
 
-      const token = {
-        type: TokenPrimitiveType.Number,
+      const token: Token = {
+        type: TokenType.Number,
         value,
+        line,
+        col,
         tab,
         position: current - value.length,
-        col,
-        line,
       }
 
-      tokens.push(token);
+      component.tokens.push(token);
       previousToken = token
       col += value.length;
       continue;
@@ -145,9 +113,8 @@ export function tokenizer(input: string): Token[] {
 
     if (WHITESPACE.test(c)) {
       let value = ''
-      while (c && WHITESPACE.test(c)) {
-        value += c;
-        c = input[++current];
+      while (WHITESPACE.test(input[current])) {
+        value += input[current++];
         col++
       }
 
@@ -163,36 +130,29 @@ export function tokenizer(input: string): Token[] {
 
     if (WORDS.test(c)) {
       let value = '';
-      while (c && WORDS.test(c)) {
-        value += c;
-        c = input[++current];
-      }
+      while (WORDS.test(input[current])) value += input[current++];
 
-      let type: TokenPrimitiveType = TokenPrimitiveType.Name
+      const type: TokenType | void = getWordToken(value)
 
-      if (isTag(value)) type = TokenPrimitiveType.Tag
-      if (isAttrubute(value)) type = TokenPrimitiveType.Attribute
-      if (isUnity(value)) type = TokenPrimitiveType.Unity
+      if (!type) throw errorInLine({ line, col }, `Unknown word '${value}'`)
 
-      const token = {
+      const token: any = {
         type,
         value,
+        line,
+        col,
         tab,
         position: current - value.length,
-        col,
-        line,
       }
 
-      tokens.push(token);
+      component.tokens.push(token);
       previousToken = token
       col += value.length;
       continue;
     }
 
-    throw `[Error in line ${line}, collum ${col}]: Unknown char '${c}'`
+    throw errorInLine({ line, col }, ` Unknown char '${c}'`)
   }
 
-  // console.log(tokens);
-
-  return tokens
+  return component
 }

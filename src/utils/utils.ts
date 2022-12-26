@@ -1,10 +1,11 @@
-import { Token, TokenSymbolType } from "../tokenizer.ts";
+import { filePath } from "../../build.ts";
+import { Token, TokenType } from "../interfaces/tokens.ts";
 
-export const errorInLine = (token: Token, message: string): string => `[Error in line ${token.line}, collum ${token.col}]: ${message}`;
+export const errorInLine = ({ line, col }: Partial<Token>, message: string): string => `at ${filePath}:${line}:${col} | Error: ${message}`;
 
-export const checkMissingQuote = (token: Token, quoteType: TokenSymbolType.SimpleQuote | TokenSymbolType.DoubleQuote): void => {
+export const checkMissingQuote = (token: Token, quoteType: TokenType.SimpleQuote | TokenType.DoubleQuote): void => {
   if (token.type !== quoteType) {
-    if (quoteType == TokenSymbolType.SimpleQuote) throw errorInLine(token, `Missing closing simple quote: " ' "`)
-    if (quoteType == TokenSymbolType.DoubleQuote) throw errorInLine(token, `Missing closing double quote: ' " '`)
+    if (quoteType == TokenType.SimpleQuote) throw errorInLine(token, `Missing closing simple quote: " ' "`)
+    if (quoteType == TokenType.DoubleQuote) throw errorInLine(token, `Missing closing double quote: ' " '`)
   }
 }

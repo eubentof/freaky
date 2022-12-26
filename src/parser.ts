@@ -1,96 +1,147 @@
-import { Token, TokenPrimitiveType, TokenSymbolType } from "./tokenizer.ts"
-import { AttributeNode, Node, NodeType, TagNode } from "./utils/parser.utils.ts";
+import { HtmlTagsSet } from "./htmlTags/htmlTags.ts";
+import { HtmlTagsAttributesHandlersMap } from "./htmlTags/htmlTagsAttributes.ts";
+import { ASTTagNode, ASTNode, ASTNodeType } from "./interfaces/ast.ts";
+import { Token, TokenType } from "./interfaces/tokens.ts";
+import { ComponentNode } from "./utils/interfaces.ts";
+import { errorInLine } from "./utils/utils.ts";
 
-export interface FkAST {
-  type: NodeType,
-  body: Node[],
-}
 
-export function parser(tokens: Token[]): FkAST {
-  function walk(tokens: Token[], currentTab = 0): any {
-    const siblingNodes: Node[] = []
+const getPosition = ({ line, col }: Token): Partial<Token> => ({ line, col })
 
-    let childTokens: Token[] = []
-    let expression: TagNode | undefined;
+export function parser(component: ComponentNode): ComponentNode {
+
+  if (!component.tokens) return component
+
+  const tokens = component.tokens
+
+  function process(tokens: Token[], currentTab = 0): ASTNode[] {
     let current = 0
-    let token: Token | undefined;
+    const siblingNodes: ASTNode[] = []
+    let expression: ASTTagNode | undefined;
 
+    if (!tokens.length) return siblingNodes
+
+    let children: Token[] = []
     while (current < tokens.length) {
-      token = tokens[current]
+      let token = tokens[current]
 
-      if (token.tab != currentTab) {
-        childTokens.push(token)
+      // Place all indented tokens as children
+      if (token.tab !== currentTab) {
+        children.push(token)
         current++
         continue
       }
 
-      if (token.type == TokenPrimitiveType.Attribute) {
-        if (!expression || expression.type !== NodeType.HTMLTag)
-          throw new Error(`Attribute "${token.value}" must be after a tag. (line: ${token.line}, col: ${token.col})`)
+      if (token.type === TokenType.HTMLAttribute) {
+        const attrNode = token
 
-        const attribute: AttributeNode = {
-          type: NodeType.HTMLAttribute,
-          name: token.value,
-          token,
-          children: []
-        };
+        // Check if there is a handler fot the attribute
+        const attrHandler = HtmlTagsAttributesHandlersMap[attrNode.value]
+        if (!attrHandler) errorInLine(attrNode, `'${attrNode}' is not a valid html attribute`)
 
         token = tokens[++current]
-        while (token.type !== TokenSymbolType.RightParentesis) {
-          if (token.type == TokenSymbolType.LeftParentesis) {
-            token = tokens[++current]
-            continue
-          }
 
-          attribute.children.push(token)
+        // Check for right parentesis
+        if (token.type !== TokenType.LeftParentesis) throw errorInLine(token, "Missing '(")
+
+        const childrenTokens: Token[] = []
+
+        token = tokens[++current]
+
+        while (
+          token.type == TokenType.String ||
+          token.type == TokenType.Number ||
+          token.type == TokenType.Literal ||
+          token.type == TokenType.Colon ||
+          token.type == TokenType.Comma
+        ) {
+          childrenTokens.push(token)
           token = tokens[++current]
+          if (!token) throw errorInLine(tokens[current - 1], "Missing ')'")
         }
 
-        expression.children.push(attribute)
+        if (token.type !== TokenType.RightParentesis) throw errorInLine(token, "Missing ')'")
+
+        const validationError = attrHandler.validate(childrenTokens)
+
+        if (validationError) throw errorInLine(validationError.token ?? attrNode, validationError.error)
+
+        const value: any = attrHandler.parse(childrenTokens)
+
+        current++
+
+        if (!expression) throw errorInLine(attrNode, `Attibute '${attrNode.value}' must be inside a html tag`)
+
+        if (!expression.attributes) expression.attributes = []
+
+        expression.attributes.push({
+          type: ASTNodeType.HTMLAttribute,
+          name: attrNode.value,
+          value,
+          token: getPosition(attrNode),
+        })
+
+        continue
+      }
+
+      if (token.type === TokenType.String) {
+        siblingNodes.push({
+          type: ASTNodeType.String,
+          value: token.value,
+          token: getPosition(token),
+        })
 
         current++
         continue
       }
 
-      if (token.type == TokenPrimitiveType.Tag) {
-        if (expression) {
-          if (childTokens.length > 0) {
-            const childNodes = walk(childTokens, currentTab + 1);
-            expression.children?.push(...childNodes)
-          }
-          siblingNodes.push(expression)
-          childTokens = []
+      if (token.type === TokenType.Number) {
+        siblingNodes.push({
+          type: ASTNodeType.Number,
+          value: Number(token.value),
+          token: getPosition(token),
+        })
+
+        current++
+        continue
+      }
+
+      if (token.type == TokenType.HTMLTag) {
+        if (expression && children.length > 0) {
+          expression.children = process(children, currentTab + 1) as ASTTagNode[]
+          children = []
         }
 
         expression = {
-          type: NodeType.HTMLTag,
+          type: ASTNodeType.HtmlTag,
           name: token.value,
-          children: [],
-          token,
+          token: getPosition(token),
         };
 
+        siblingNodes.push(expression)
         current++
+        continue
       }
+
+      throw errorInLine(token, `Literal '${(token.value)}' is unknown`)
     }
 
-    // For the last node
-    if (expression) {
-      if (childTokens.length > 0) {
-        const childNodes = walk(childTokens, currentTab + 1);
-        expression.children?.push(...childNodes)
-      }
-      siblingNodes.push(expression)
-    }
+    // For the last expression
+    if (expression && children.length > 0)
+      expression.children = process(children, currentTab + 1) as ASTTagNode[]
+
 
     return siblingNodes
   }
 
-  const ast = {
-    type: NodeType.Component,
-    body: walk(tokens),
+  delete component.tokens
+
+  component.ast = {
+    type: ASTNodeType.Program,
+    children: process(tokens, 0),
   };
 
-  // console.log(JSON.stringify(ast, null, 2));
+  // console.log(JSON.stringify(component.ast, null, 2));
 
-  return ast
+  return component
 }

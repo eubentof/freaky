@@ -1,46 +1,53 @@
-import { attributeHandlers, TagAttributeHandler, TagAttributeTransformer } from "./tagAttributeHandlers.ts";
-import { FkAST } from "./parser.ts";
-import { traverse } from "./trasverse.ts";
-import { AttributeNode, Node, NodeType, TagNode } from "./utils/parser.utils.ts";
+import { inLineHtmlTags } from "./htmlTags/htmlTags.ts";
+import { HtmlTagsAttributesHandlersMap } from "./htmlTags/htmlTagsAttributes.ts";
+import { ASTHtmlTagAttributeValueNode, ASTNodeType, ASTProgramNode } from "./interfaces/ast.ts";
+import { ASTNode } from "./interfaces/ast.ts";
+import { ComponentNode } from "./utils/interfaces.ts";
 
-const isInlineTag = (tag?: string) => tag && ['input'].includes(tag)
+const isInlineTag = (tag?: string) => tag && inLineHtmlTags.has(tag)
 
-export function transformer(tree: FkAST): any {
 
-  const htmlAST: Node = {
-    type: NodeType.Tempalte,
-    name: '',
-    children: []
-  };
+const attributesBulder = (attributes: ASTHtmlTagAttributeValueNode[]): string => attributes
+  .map((node) => HtmlTagsAttributesHandlersMap[node.name].toString(node))
+  .join(' ')
 
-  traverse(tree, htmlAST, {
-    [NodeType.HTMLTag]: (node: Node): Node => {
-      const expression: Node = {
-        type: NodeType.HTMLTag,
-        name: node.name,
-        children: []
+export function transformer(component: ComponentNode): any {
+
+  if (!component.ast) return component
+
+  component.template = ''
+
+  if (!component.ast || component.ast.children.length == 0) return component
+
+  function transformToHtml(ast: ASTProgramNode): string {
+    function walkNode(node: ASTNode): string {
+
+      let content = ''
+      let attributes = ''
+
+      if (node.type == ASTNodeType.HtmlTag) {
+        if (node.attributes) attributes = ' ' + attributesBulder(node.attributes)
+
+        if (isInlineTag(node.name)) return `<${node.name}${attributes}/>`
+
+        if (node.children?.length) content = walkNodes(node.children)
+
+        return `<${node.name}${attributes}>${content}</${node.name}>`
       }
 
-      if (isInlineTag(node.name)) {
-        if (!expression.props) expression.props = {}
-        expression.props.inline = true
-      }
-
-      return expression
-    },
-
-    [NodeType.HTMLAttribute]: (node: Node, parent: TagNode): void => {
-      if (!parent.attributes) parent.attributes = {}
-
-      const handler: TagAttributeHandler = attributeHandlers[node.name]
-
-      if (!handler) throw `'${node.name}' is not a valid attribute. (line: ${node.token?.line}, col: ${node.token?.col})`
-
-      if (node.children.length == 0) throw `There is a syntax error at ${node.token?.line} column ${node.token?.col}. '${node.name}' must a value.`
-
-      handler.transform(node as AttributeNode, parent)
+      return content
     }
-  });
 
-  return htmlAST;
+    function walkNodes(nodes: ASTNode[]): string {
+      return nodes.map(node => walkNode(node)).join(' ')
+    }
+
+    return walkNodes(ast.children)
+  }
+
+  component.template = transformToHtml(component.ast);
+
+  // console.log(component.template);
+
+  return component;
 }

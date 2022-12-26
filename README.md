@@ -15,5 +15,5 @@ TODO:
     - [x] class
     - [x] data
 - [x] Fazer o match do single e double quote
-- [ ] Listar as tags e suas propriedades
 - [ ] Verificar tag duplicada
+- [ ] Listar as tags e suas propriedades

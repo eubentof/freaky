@@ -1,11 +1,11 @@
 div 
   | id("asd")
   | class('element-A', 'elementB')
-  | data(dname: 'as')
+  | dataset(dname: 'as')
   section id('assction')
     span id('asspan')
       p
-    input data(dname: 'Filipe Bento', dphone: '31982741441')
+    input id('the-name') dataset(dname: 'Filipe Bento', dphone: 31982741441)
   main
     header
       div
@@ -14,4 +14,13 @@ div
         textarea
       select
 header
+  div
+    table
+      thead 
+        tr
+          td
+      tbody 
+        tr
+          th
+    
   
