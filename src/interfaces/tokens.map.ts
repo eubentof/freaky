@@ -42,8 +42,8 @@ export const tokenSymbolMap: { [char: string]: (args: TokenHandlerParams) => Tok
 }
 
 export const getWordToken = (word: string): TokenType => {
-  if (isHTMLTag(word)) return TokenType.HTMLTag
   if (isHTMLAttrubute(word)) return TokenType.HTMLAttribute
+  if (isHTMLTag(word)) return TokenType.HTMLTag
   if (isUnity(word)) return TokenType.Unity
 
   return TokenType.Literal

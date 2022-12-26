@@ -72,6 +72,32 @@ export function tokenizer(component: ComponentNode): ComponentNode {
       continue;
     }
 
+    // Check for text
+    if (QUOTE.test(c)) {
+      const quote = c;
+      let value = ''
+      current++
+      while (input[current] !== '\n' && input[current] !== quote) value += input[current++];
+
+      col += value.length
+
+      if (input[current] == '\n') throw errorInLine({ line, col }, "Missing closing quote")
+
+      const token: Token = {
+        type: TokenType.String,
+        value,
+        line,
+        col,
+        tab,
+        position: current - value.length,
+      }
+
+      component.tokens.push(token);
+      previousToken = token
+      current++;
+      continue;
+    }
+
     // Check for symble tokens
     const tokenSymbleHandler = tokenSymbolMap[c]
     if (tokenSymbleHandler) {
@@ -153,6 +179,8 @@ export function tokenizer(component: ComponentNode): ComponentNode {
 
     throw errorInLine({ line, col }, ` Unknown char '${c}'`)
   }
+
+  // console.log(component.tokens);
 
   return component
 }

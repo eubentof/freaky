@@ -1,0 +1,1470 @@
+{
+  "a": {
+    "download": {
+      "value": "filename",
+      "description": "Specifies that the target will be downloaded when a user clicks on the hyperlink"
+    },
+    "href": {
+      "value": "URL",
+      "description": "Specifies the URL of the page the link goes to"
+    },
+    "hreflang": {
+      "value": "language_code",
+      "description": "Specifies the language of the linked document"
+    },
+    "media": {
+      "value": "media_query",
+      "description": "Specifies what media/device the linked document is optimized for"
+    },
+    "ping": {
+      "value": "list_of_URLs",
+      "description": "Specifies a space-separated list of URLs to which, when the link is \n    followed, post requests with the body ping will be sent by the browser (in \n    the background). Typically used for tracking."
+    },
+    "referrerpolicy": {
+      "value": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "same-origin",
+        "strict-origin-when-cross-origin",
+        "unsafe-url"
+      ],
+      "description": "Specifies which referrer information to send with the link"
+    },
+    "rel": {
+      "value": [
+        "alternate",
+        "author",
+        "bookmark",
+        "external",
+        "help",
+        "license",
+        "next",
+        "nofollow",
+        "noreferrer",
+        "noopener",
+        "prev",
+        "search",
+        "tag"
+      ],
+      "description": "Specifies the relationship between the current document and the linked document"
+    },
+    "target": {
+      "value": [
+        "_blank",
+        "_parent",
+        "_self",
+        "_top"
+      ],
+      "description": "Specifies where to open the linked document"
+    },
+    "type": {
+      "value": "media_type",
+      "description": "Specifies the media type of the linked document"
+    }
+  },
+  "area": {
+    "alt": {
+      "value": "text",
+      "description": "Specifies an alternate text for the area. Required if the href attribute is present"
+    },
+    "coords": {
+      "value": "coordinates",
+      "description": "Specifies the coordinates of the area"
+    },
+    "download": {
+      "value": "filename",
+      "description": "Specifies that the target will be downloaded when a user clicks on the hyperlink"
+    },
+    "href": {
+      "value": "URL",
+      "description": "Specifies the hyperlink target for the area"
+    },
+    "hreflang": {
+      "value": "language_code",
+      "description": "Specifies the language of the target URL"
+    },
+    "media": {
+      "value": "media query",
+      "description": "Specifies what media/device the target URL is optimized for"
+    },
+    "referrerpolicy": {
+      "value": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "same-origin",
+        "strict-origin-when-cross-origin",
+        "unsafe-url"
+      ],
+      "description": "Specifies which referrer information to send with the link"
+    },
+    "rel": {
+      "value": [
+        "alternate",
+        "author",
+        "bookmark",
+        "help",
+        "license",
+        "next",
+        "nofollow",
+        "noreferrer",
+        "prefetch",
+        "prev",
+        "search",
+        "tag"
+      ],
+      "description": "Specifies the relationship between the current document and the target URL"
+    },
+    "shape": {
+      "value": [
+        "default",
+        "rect",
+        "circle",
+        "poly"
+      ],
+      "description": "Specifies the shape of the area"
+    },
+    "target": {
+      "value": [
+        "_blank",
+        "_parent",
+        "_self",
+        "_top",
+        "<em>framename</em>"
+      ],
+      "description": "Specifies where to open the target URL"
+    },
+    "type": {
+      "value": "media_type",
+      "description": "Specifies the media type of the target URL"
+    }
+  },
+  "audio": {
+    "Edge / IE": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES*"
+    },
+    "Chrome": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Firefox": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Safari": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Opera": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    }
+  },
+  "base": {
+    "href": {
+      "value": "URL",
+      "description": "Specifies the base URL for all relative URLs in the page"
+    },
+    "target": {
+      "value": [
+        "_blank",
+        "_parent",
+        "_self",
+        "_top"
+      ],
+      "description": "Specifies the default target for all hyperlinks and forms in the page"
+    }
+  },
+  "bdo": {
+    "dir": {
+      "value": [
+        "ltr",
+        "rtl"
+      ],
+      "description": "Required. Specifies the text direction of the text inside the <bdo> element"
+    }
+  },
+  "blockquote": {
+    "cite": {
+      "value": "URL",
+      "description": "Specifies the source of the quotation"
+    }
+  },
+  "button": {
+    "autofocus": {
+      "value": [
+        "autofocus"
+      ],
+      "description": "Specifies that a button should automatically get focus when the page loads"
+    },
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that a button should be disabled"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the button belongs to"
+    },
+    "formaction": {
+      "value": "URL",
+      "description": "Specifies where to send the form-data when a form is submitted. Only for type=\"submit\""
+    },
+    "formenctype": {
+      "value": [
+        "application/x-www-form-urlencoded",
+        "multipart/form-data",
+        "text/plain"
+      ],
+      "description": "Specifies how form-data should be encoded before sending it to a server. Only for type=\"submit\""
+    },
+    "formmethod": {
+      "value": [
+        "get",
+        "post"
+      ],
+      "description": "Specifies how to send the form-data (which HTTP method to use). Only for type=\"submit\""
+    },
+    "formnovalidate": {
+      "value": [
+        "formnovalidate"
+      ],
+      "description": "Specifies that the form-data should not be validated on submission. Only for type=\"submit\""
+    },
+    "formtarget": {
+      "value": [
+        "_blank",
+        "_self",
+        "_parent",
+        "_top",
+        "<i>framename</i>"
+      ],
+      "description": "Specifies where to display the response after submitting the form. Only for type=\"submit\""
+    },
+    "name": {
+      "value": "name",
+      "description": "Specifies a name for the button"
+    },
+    "type": {
+      "value": [
+        "button",
+        "reset",
+        "submit"
+      ],
+      "description": "Specifies the type of button"
+    },
+    "value": {
+      "value": "text",
+      "description": "Specifies an initial value for the button"
+    }
+  },
+  "canvas": {
+    "height": {
+      "value": "pixels",
+      "description": "Specifies the height of the canvas. Default value is 150"
+    },
+    "width": {
+      "value": "pixels",
+      "description": "Specifies the width of the canvas Default value is 300"
+    }
+  },
+  "code": {
+    "<samp>": {
+      "value": [
+        "Defines sample output from a computer program"
+      ],
+      "description": ""
+    },
+    "<kbd>": {
+      "value": [
+        "Defines keyboard input"
+      ],
+      "description": ""
+    },
+    "<var>": {
+      "value": [
+        "Defines a variable"
+      ],
+      "description": ""
+    },
+    "<pre>": {
+      "value": [
+        "Defines preformatted text"
+      ],
+      "description": ""
+    }
+  },
+  "col": {
+    "span": {
+      "value": "number",
+      "description": "Specifies the number of columns a <col> element should span"
+    }
+  },
+  "colgroup": {
+    "span": {
+      "value": "number",
+      "description": "Specifies the number of columns a column group should span"
+    }
+  },
+  "data": {
+    "value": {
+      "value": "machine-readable format",
+      "description": "Specifies the machine-readable translation of the content of the element"
+    }
+  },
+  "del": {
+    "cite": {
+      "value": "URL",
+      "description": "Specifies a URL to a document that explains the reason why the text was deleted/changed"
+    },
+    "datetime": {
+      "value": "YYYY-MM-DDThh:mm:ssTZD",
+      "description": "Specifies the date and time of when the text was deleted/changed"
+    }
+  },
+  "details": {
+    "open": {
+      "value": [
+        "open"
+      ],
+      "description": "Specifies that the details should be visible (open) to the user"
+    }
+  },
+  "dialog": {
+    "open": {
+      "value": [
+        "open"
+      ],
+      "description": "Specifies that the dialog element is active and that the user can interact with it"
+    }
+  },
+  "embed": {
+    "height": {
+      "value": "pixels",
+      "description": "Specifies the height of the embedded content"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Specifies the address of the external file to embed"
+    },
+    "type": {
+      "value": "media_type",
+      "description": "Specifies the media type of the embedded content"
+    },
+    "width": {
+      "value": "pixels",
+      "description": "Specifies the width of the embedded content"
+    }
+  },
+  "fieldset": {
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that a group of related form elements should be disabled"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the fieldset belongs to"
+    },
+    "name": {
+      "value": "text",
+      "description": "Specifies a name for the fieldset"
+    }
+  },
+  "form": {
+    "accept-charset": {
+      "value": "character_set",
+      "description": "Specifies the character encodings that are to be used for the form submission"
+    },
+    "action": {
+      "value": "URL",
+      "description": "Specifies where to send the form-data when a form is submitted"
+    },
+    "autocomplete": {
+      "value": [
+        "on",
+        "off"
+      ],
+      "description": "Specifies whether a form should have autocomplete on or off"
+    },
+    "enctype": {
+      "value": [
+        "application/x-www-form-urlencoded",
+        "multipart/form-data",
+        "text/plain"
+      ],
+      "description": "Specifies how the form-data should be encoded when submitting it to the server (only for method=\"post\")"
+    },
+    "method": {
+      "value": [
+        "get",
+        "post"
+      ],
+      "description": "Specifies the HTTP method to use when sending form-data"
+    },
+    "name": {
+      "value": "text",
+      "description": "Specifies the name of a form"
+    },
+    "novalidate": {
+      "value": [
+        "novalidate"
+      ],
+      "description": "Specifies that the form should not be validated when submitted"
+    },
+    "rel": {
+      "value": [
+        "external",
+        "help",
+        "license",
+        "next",
+        "nofollow",
+        "noopener",
+        "noreferrer",
+        "opener",
+        "prev",
+        "search"
+      ],
+      "description": "Specifies the relationship between a linked resource and the current \n    document"
+    },
+    "target": {
+      "value": [
+        "_blank",
+        "_self",
+        "_parent",
+        "_top"
+      ],
+      "description": "Specifies where to display the response that is received after submitting the form"
+    }
+  },
+  "html": {
+    "xmlns": {
+      "value": [
+        "http://www.w3.org/1999/xhtml"
+      ],
+      "description": "Specifies the XML namespace attribute (If you need your content to conform to XHTML)"
+    }
+  },
+  "iframe": {
+    "allow": {
+      "value": [
+        "&nbsp;"
+      ],
+      "description": "Specifies a feature policy for the <iframe>"
+    },
+    "allowfullscreen": {
+      "value": [
+        "true",
+        "false"
+      ],
+      "description": "Set to true if the <iframe> can activate fullscreen mode by calling the \n    requestFullscreen() method"
+    },
+    "allowpaymentrequest": {
+      "value": [
+        "true",
+        "false"
+      ],
+      "description": "Set to true if a cross-origin <iframe> should be allowed to invoke the \n    Payment Request API"
+    },
+    "height": {
+      "value": "pixels",
+      "description": "Specifies the height of an <iframe>. Default height is 150 pixels"
+    },
+    "loading": {
+      "value": [
+        "eager",
+        "lazy"
+      ],
+      "description": "Specifies whether a browser should load an iframe immediately or to \n    defer loading of iframes until some conditions are met"
+    },
+    "name": {
+      "value": "text",
+      "description": "Specifies the name of an <iframe>"
+    },
+    "referrerpolicy": {
+      "value": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "same-origin",
+        "strict-origin-when-cross-origin",
+        "unsafe-url"
+      ],
+      "description": "Specifies which referrer information to send when \n    fetching the iframe"
+    },
+    "sandbox": {
+      "value": [
+        "allow-forms",
+        "allow-pointer-lock",
+        "allow-popups",
+        "allow-same-origin",
+        "allow-scripts",
+        "allow-top-navigation"
+      ],
+      "description": "Enables an extra set of restrictions for the content in an <iframe>"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Specifies the address of the document to embed in the <iframe>"
+    },
+    "srcdoc": {
+      "value": "HTML_code",
+      "description": "Specifies the HTML content of the page to show in the <iframe>"
+    },
+    "width": {
+      "value": "pixels",
+      "description": "Specifies the width of an <iframe>. Default width is 300 pixels"
+    }
+  },
+  "img": {
+    "alt": {
+      "value": "text",
+      "description": "Specifies an alternate text for an image"
+    },
+    "crossorigin": {
+      "value": [
+        "anonymous",
+        "use-credentials"
+      ],
+      "description": "Allow images from third-party sites that allow cross-origin access to be used with canvas"
+    },
+    "height": {
+      "value": "pixels",
+      "description": "Specifies the height of an image"
+    },
+    "ismap": {
+      "value": [
+        "ismap"
+      ],
+      "description": "Specifies an image as a server-side image map"
+    },
+    "loading": {
+      "value": [
+        "eager",
+        "lazy"
+      ],
+      "description": "Specifies whether a browser should load an image immediately or to defer \n    loading of images until some conditions are met"
+    },
+    "longdesc": {
+      "value": "URL",
+      "description": "Specifies a URL to a detailed description of an image"
+    },
+    "referrerpolicy": {
+      "value": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "unsafe-url"
+      ],
+      "description": "Specifies which referrer information to use when fetching an image"
+    },
+    "sizes": {
+      "value": "sizes",
+      "description": "Specifies image sizes for different page layouts"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Specifies the path to the image"
+    },
+    "srcset": {
+      "value": "URL-list ",
+      "description": "Specifies a list of image files to use in different situations"
+    },
+    "usemap": {
+      "value": "#mapname",
+      "description": "Specifies an image as a client-side image map"
+    },
+    "width": {
+      "value": "pixels",
+      "description": "Specifies the width of an image"
+    }
+  },
+  "input": {
+    "accept": {
+      "value": "file_extension\n audio/*\n video/*\n image/*\n media_type",
+      "description": "Specifies a filter for what file types the user can pick from the file \n    input dialog box (only for type=\"file\")"
+    },
+    "alt": {
+      "value": "text",
+      "description": "Specifies an alternate text for images (only for type=\"image\")"
+    },
+    "autocomplete": {
+      "value": [
+        "on",
+        "off"
+      ],
+      "description": "Specifies whether an <input> element should have autocomplete enabled"
+    },
+    "autofocus": {
+      "value": [
+        "autofocus"
+      ],
+      "description": "Specifies that an <input> element should automatically get focus when the page loads"
+    },
+    "checked": {
+      "value": [
+        "checked"
+      ],
+      "description": "Specifies that an <input> element should be pre-selected when the page loads (for type=\"checkbox\" or type=\"radio\")"
+    },
+    "dirname": {
+      "value": "inputname.dir",
+      "description": "Specifies that the text direction will be submitted"
+    },
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that an <input> element should be disabled"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies the form the <input> element belongs to"
+    },
+    "formaction": {
+      "value": "URL",
+      "description": "Specifies the URL of the file that will process the input control when the form is submitted (for type=\"submit\" and type=\"image\")"
+    },
+    "formenctype": {
+      "value": [
+        "application/x-www-form-urlencoded",
+        "multipart/form-data",
+        "text/plain"
+      ],
+      "description": "Specifies how the form-data should be encoded when submitting it to the server (for type=\"submit\" and type=\"image\")"
+    },
+    "formmethod": {
+      "value": [
+        "get",
+        "post"
+      ],
+      "description": "Defines the HTTP method for sending data to the action URL (for type=\"submit\" and type=\"image\")"
+    },
+    "formnovalidate": {
+      "value": [
+        "formnovalidate"
+      ],
+      "description": "Defines that form elements should not be validated when submitted"
+    },
+    "formtarget": {
+      "value": [
+        "_blank",
+        "_self",
+        "_parent",
+        "_top",
+        "<em>framename</em>"
+      ],
+      "description": "Specifies where to display the response that is received after submitting the form (for type=\"submit\" and type=\"image\")"
+    },
+    "height": {
+      "value": "pixels",
+      "description": "Specifies the height of an <input> element (only for type=\"image\")"
+    },
+    "list": {
+      "value": "datalist_id",
+      "description": "Refers to a <datalist> element that contains pre-defined options for an <input> element"
+    },
+    "max": {
+      "value": "number\n date",
+      "description": "Specifies the maximum value for an <input> element"
+    },
+    "maxlength": {
+      "value": "number",
+      "description": "Specifies the maximum number of characters allowed in an <input> element"
+    },
+    "min": {
+      "value": "number\n date",
+      "description": "Specifies a minimum value for an <input> element"
+    },
+    "minlength": {
+      "value": "number",
+      "description": "Specifies the minimum number of characters required in an <input> element"
+    },
+    "multiple": {
+      "value": [
+        "multiple"
+      ],
+      "description": "Specifies that a user can enter more than one value in an <input> element"
+    },
+    "name": {
+      "value": "text",
+      "description": "Specifies the name of an <input> element"
+    },
+    "pattern": {
+      "value": "regexp",
+      "description": "Specifies a regular expression that an <input> element's value is checked against"
+    },
+    "placeholder": {
+      "value": "text",
+      "description": "Specifies a short hint that describes the expected value of an <input> element"
+    },
+    "readonly": {
+      "value": [
+        "readonly"
+      ],
+      "description": "Specifies that an input field is read-only"
+    },
+    "required": {
+      "value": [
+        "required"
+      ],
+      "description": "Specifies that an input field must be filled out before submitting the form"
+    },
+    "size": {
+      "value": "number",
+      "description": "Specifies the width, in characters, of an <input> element"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Specifies the URL of the image to use as a submit button (only for \n    type=\"image\")"
+    },
+    "step": {
+      "value": [
+        "<i>number",
+        "</i>any"
+      ],
+      "description": "Specifies the interval between legal numbers in an input field"
+    },
+    "type": {
+      "value": [
+        "button",
+        "checkbox",
+        "color",
+        "date",
+        "datetime-local",
+        "email",
+        "file",
+        "hidden",
+        "image",
+        "month",
+        "number",
+        "password",
+        "radio",
+        "range",
+        "reset",
+        "search",
+        "submit",
+        "tel",
+        "text",
+        "time",
+        "url",
+        "week"
+      ],
+      "description": "Specifies the type <input> element to display"
+    },
+    "value": {
+      "value": "text",
+      "description": "Specifies the value of an <input> element"
+    },
+    "width": {
+      "value": "pixels",
+      "description": "Specifies the width of an <input> element (only for type=\"image\")"
+    }
+  },
+  "ins": {
+    "cite": {
+      "value": "URL",
+      "description": "Specifies a URL to a document that explains the reason why the text was inserted/changed"
+    },
+    "datetime": {
+      "value": "YYYY-MM-DDThh:mm:ssTZD",
+      "description": "Specifies the date and time when the text was inserted/changed"
+    }
+  },
+  "kbd": {
+    "<code>": {
+      "value": [
+        "Defines a piece of computer code"
+      ],
+      "description": ""
+    },
+    "<samp>": {
+      "value": [
+        "Defines sample output from a computer program"
+      ],
+      "description": ""
+    },
+    "<var>": {
+      "value": [
+        "Defines a variable"
+      ],
+      "description": ""
+    },
+    "<pre>": {
+      "value": [
+        "Defines preformatted text"
+      ],
+      "description": ""
+    }
+  },
+  "label": {
+    "for": {
+      "value": "element_id",
+      "description": "Specifies the id of the form element the label should be bound to"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the label belongs to"
+    }
+  },
+  "li": {
+    "value": {
+      "value": "number",
+      "description": "Only for <ol> lists. Specifies the start value of a list item. The \n    following list items will increment from that number"
+    }
+  },
+  "link": {
+    "crossorigin": {
+      "value": [
+        "anonymous",
+        "use-credentials"
+      ],
+      "description": "Specifies how the element handles cross-origin requests"
+    },
+    "href": {
+      "value": "URL",
+      "description": "Specifies the location of the linked document"
+    },
+    "hreflang": {
+      "value": "language_code",
+      "description": "Specifies the language of the text in the linked document"
+    },
+    "media": {
+      "value": "media_query",
+      "description": "Specifies on what device the linked document will be displayed"
+    },
+    "referrerpolicy": {
+      "value": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "unsafe-url"
+      ],
+      "description": "Specifies which referrer to use when fetching the resource"
+    },
+    "rel": {
+      "value": [
+        "alternate",
+        "author",
+        "dns-prefetch",
+        "help",
+        "icon",
+        "license",
+        "next",
+        "pingback",
+        "preconnect",
+        "prefetch",
+        "preload",
+        "prerender",
+        "prev",
+        "search",
+        "stylesheet"
+      ],
+      "description": "Required. Specifies the relationship between the current document and the linked document"
+    },
+    "sizes": {
+      "value": "HeightxWidth\n any",
+      "description": "Specifies the size of the linked resource. Only for rel=\"icon\""
+    },
+    "title": {
+      "value": [
+        "&nbsp;"
+      ],
+      "description": "Defines a preferred or an alternate stylesheet"
+    },
+    "type": {
+      "value": "media_type",
+      "description": "Specifies the media type of the linked document"
+    }
+  },
+  "map": {
+    "name": {
+      "value": "mapname",
+      "description": "Required. Specifies the name of the image map"
+    }
+  },
+  "meta": {
+    "charset": {
+      "value": "character_set",
+      "description": "Specifies the character encoding for the HTML document"
+    },
+    "content": {
+      "value": "text",
+      "description": "Specifies the value associated with the http-equiv or name attribute"
+    },
+    "http-equiv": {
+      "value": [
+        "content-security-policy",
+        "content-type",
+        "default-style",
+        "refresh"
+      ],
+      "description": "Provides an HTTP header for the information/value of the content attribute"
+    },
+    "name": {
+      "value": [
+        "application-name",
+        "author",
+        "description",
+        "generator<i>",
+        "</i>keywords",
+        "viewport"
+      ],
+      "description": "Specifies a name for the metadata"
+    }
+  },
+  "meter": {
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the <meter> element belongs to"
+    },
+    "high": {
+      "value": "number",
+      "description": "Specifies the range that is considered to be a high value"
+    },
+    "low": {
+      "value": "number",
+      "description": "Specifies the range that is considered to be a low value"
+    },
+    "max": {
+      "value": "number",
+      "description": "Specifies the maximum value of the range"
+    },
+    "min": {
+      "value": "number",
+      "description": "Specifies the minimum value of the range. Default value is 0"
+    },
+    "optimum": {
+      "value": "number",
+      "description": "Specifies what value is the optimal value for the gauge"
+    },
+    "value": {
+      "value": "number",
+      "description": "Required. Specifies the current value of the gauge"
+    }
+  },
+  "object": {
+    "data": {
+      "value": "URL",
+      "description": "Specifies the URL of the resource to be used by the object"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the object belongs to"
+    },
+    "height": {
+      "value": "pixels",
+      "description": "Specifies the height of the object"
+    },
+    "name": {
+      "value": "name",
+      "description": "Specifies a name for the object"
+    },
+    "type": {
+      "value": "media_type",
+      "description": "Specifies the media type of data specified in the data attribute"
+    },
+    "typemustmatch": {
+      "value": "true/false",
+      "description": "Specifies whether the type attribute and the actual content of the \n    resource must match to be displayed"
+    },
+    "usemap": {
+      "value": "#mapname",
+      "description": "Specifies the name of a client-side image map to be used with the object"
+    },
+    "width": {
+      "value": "pixels",
+      "description": "Specifies the width of the object"
+    }
+  },
+  "ol": {
+    "reversed": {
+      "value": [
+        "reversed"
+      ],
+      "description": "Specifies that the list order should be reversed (9,8,7...)"
+    },
+    "start": {
+      "value": "number",
+      "description": "Specifies the start value of an ordered list"
+    },
+    "type": {
+      "value": [
+        "1",
+        "A",
+        "a",
+        "I",
+        "i"
+      ],
+      "description": "Specifies the kind of marker to use in the list"
+    }
+  },
+  "optgroup": {
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that an option-group should be disabled"
+    },
+    "label": {
+      "value": "text",
+      "description": "Specifies a label for an option-group"
+    }
+  },
+  "option": {
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that an option should be disabled"
+    },
+    "label": {
+      "value": "text",
+      "description": "Specifies a shorter label for an option"
+    },
+    "selected": {
+      "value": [
+        "selected"
+      ],
+      "description": "Specifies that an option should be pre-selected when the page loads"
+    },
+    "value": {
+      "value": "text",
+      "description": "Specifies the value to be sent to a server"
+    }
+  },
+  "output": {
+    "for": {
+      "value": "element_id",
+      "description": "Specifies the relationship between the result of the calculation, and the elements used in the calculation"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the output element belongs to"
+    },
+    "name": {
+      "value": "name",
+      "description": "Specifies a name for the output element"
+    }
+  },
+  "param": {
+    "name": {
+      "value": "name",
+      "description": "Specifies the name of a parameter"
+    },
+    "value": {
+      "value": "value",
+      "description": "Specifies the value of the parameter"
+    }
+  },
+  "pre": {
+    "<code>": {
+      "value": [
+        "Defines a piece of computer code"
+      ],
+      "description": ""
+    },
+    "<samp>": {
+      "value": [
+        "Defines sample output from a computer program"
+      ],
+      "description": ""
+    },
+    "<kbd>": {
+      "value": [
+        "Defines keyboard input"
+      ],
+      "description": ""
+    },
+    "<var>": {
+      "value": [
+        "Defines a variable"
+      ],
+      "description": ""
+    }
+  },
+  "progress": {
+    "max": {
+      "value": "number",
+      "description": "Specifies how much work the task requires in total. Default value is 1"
+    },
+    "value": {
+      "value": "number",
+      "description": "Specifies how much of the task has been completed"
+    }
+  },
+  "q": {
+    "cite": {
+      "value": "URL",
+      "description": "Specifies the source URL of the quote"
+    }
+  },
+  "samp": {
+    "<code>": {
+      "value": [
+        "Defines a piece of computer code"
+      ],
+      "description": ""
+    },
+    "<kbd>": {
+      "value": [
+        "Defines keyboard input"
+      ],
+      "description": ""
+    },
+    "<var>": {
+      "value": [
+        "Defines a variable"
+      ],
+      "description": ""
+    },
+    "<pre>": {
+      "value": [
+        "Defines preformatted text"
+      ],
+      "description": ""
+    }
+  },
+  "script": {
+    "async": {
+      "value": [
+        "async"
+      ],
+      "description": "Specifies that the script is downloaded in parallel to parsing the page, \n    and executed as soon as it is available (before parsing completes) (only for external scripts)"
+    },
+    "crossorigin": {
+      "value": [
+        "anonymous",
+        "use-credentials"
+      ],
+      "description": "Sets the mode of the request to an HTTP CORS Request"
+    },
+    "defer": {
+      "value": [
+        "defer"
+      ],
+      "description": "Specifies that the script is downloaded in parallel to parsing the page, \n    and executed after the page has finished parsing (only for external scripts)"
+    },
+    "integrity": {
+      "value": "filehash",
+      "description": "Allows a browser to check the fetched script to ensure that the code is \n    never loaded if the source has been manipulated"
+    },
+    "nomodule": {
+      "value": [
+        "True",
+        "False"
+      ],
+      "description": "Specifies that the script should not be executed in browsers supporting\n    ES2015 modules"
+    },
+    "referrerpolicy": {
+      "value": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "same-origin",
+        "strict-origin",
+        "strict-origin-when-cross-origin",
+        "unsafe-url"
+      ],
+      "description": "Specifies which referrer information to send when fetching a script"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Specifies the URL of an external script file"
+    },
+    "type": {
+      "value": "scripttype",
+      "description": "Specifies the media type of the script"
+    }
+  },
+  "select": {
+    "autofocus": {
+      "value": [
+        "autofocus"
+      ],
+      "description": "Specifies that the drop-down list should automatically get focus when the page loads"
+    },
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that a drop-down list should be disabled"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Defines which form the drop-down list belongs to"
+    },
+    "multiple": {
+      "value": [
+        "multiple"
+      ],
+      "description": "Specifies that multiple options can be selected at once"
+    },
+    "name": {
+      "value": "name",
+      "description": "Defines a name for the drop-down list"
+    },
+    "required": {
+      "value": [
+        "required"
+      ],
+      "description": "Specifies that the user is required to select a value before submitting the form"
+    },
+    "size": {
+      "value": "number",
+      "description": "Defines the number of visible options in a drop-down list"
+    }
+  },
+  "source": {
+    "media": {
+      "value": "media_query",
+      "description": "Accepts any valid media query that would normally be defined in a CSS"
+    },
+    "sizes": {
+      "value": [
+        "&nbsp;"
+      ],
+      "description": "Specifies image sizes for different page layouts"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Required when <source> is used in <audio> and <video>. Specifies the URL of the media file"
+    },
+    "srcset": {
+      "value": "URL",
+      "description": "Required when <source> is used in <picture>. Specifies the URL of the \n    image to use in different situations"
+    },
+    "type": {
+      "value": "MIME-type",
+      "description": "Specifies the MIME-type of the resource"
+    }
+  },
+  "style": {
+    "media": {
+      "value": "media_query",
+      "description": "Specifies what media/device the media resource is optimized for"
+    },
+    "type": {
+      "value": [
+        "text/css"
+      ],
+      "description": "Specifies the media type of the <style> tag"
+    }
+  },
+  "td": {
+    "colspan": {
+      "value": "number",
+      "description": "Specifies the number of columns a cell should span"
+    },
+    "headers": {
+      "value": "header_id",
+      "description": "Specifies one or more header cells a cell is related to"
+    },
+    "rowspan": {
+      "value": "number",
+      "description": "Sets the number of rows a cell should span"
+    }
+  },
+  "textarea": {
+    "autofocus": {
+      "value": [
+        "autofocus"
+      ],
+      "description": "Specifies that a text area should automatically get focus when the page loads"
+    },
+    "cols": {
+      "value": "number",
+      "description": "Specifies the visible width of a text area"
+    },
+    "dirname": {
+      "value": "textareaname.dir",
+      "description": "Specifies that the text direction of the textarea will be submitted"
+    },
+    "disabled": {
+      "value": [
+        "disabled"
+      ],
+      "description": "Specifies that a text area should be disabled"
+    },
+    "form": {
+      "value": "form_id",
+      "description": "Specifies which form the text area belongs to"
+    },
+    "maxlength": {
+      "value": "number",
+      "description": "Specifies the maximum number of characters allowed in the text area"
+    },
+    "name": {
+      "value": "text",
+      "description": "Specifies a name for a text area"
+    },
+    "placeholder": {
+      "value": "text",
+      "description": "Specifies a short hint that describes the expected value of a text area"
+    },
+    "readonly": {
+      "value": [
+        "readonly"
+      ],
+      "description": "Specifies that a text area should be read-only"
+    },
+    "required": {
+      "value": [
+        "required"
+      ],
+      "description": "Specifies that a text area is required/must be filled out"
+    },
+    "rows": {
+      "value": "number",
+      "description": "Specifies the visible number of lines in a text area"
+    },
+    "wrap": {
+      "value": [
+        "hard",
+        "soft"
+      ],
+      "description": "Specifies how the text in a text area is to be wrapped when submitted in a form"
+    }
+  },
+  "th": {
+    "abbr": {
+      "value": "text",
+      "description": "Specifies an abbreviated version of the content in a header cell"
+    },
+    "colspan": {
+      "value": "number",
+      "description": "Specifies the number of columns a header cell should span"
+    },
+    "headers": {
+      "value": "header_id",
+      "description": "Specifies one or more header cells a cell is related to"
+    },
+    "rowspan": {
+      "value": "number",
+      "description": "Specifies the number of rows a header cell should span"
+    },
+    "scope": {
+      "value": [
+        "col",
+        "colgroup",
+        "row",
+        "rowgroup"
+      ],
+      "description": "Specifies whether a header cell is a header for a column, row, or group of columns or rows"
+    }
+  },
+  "time": {
+    "datetime": {
+      "value": "datetime",
+      "description": "Represent a machine-readable format of the <time> element"
+    }
+  },
+  "track": {
+    "default": {
+      "value": [
+        "default"
+      ],
+      "description": "Specifies that the track is to be enabled if the user's preferences do not indicate that another track would be more appropriate"
+    },
+    "kind": {
+      "value": [
+        "captions",
+        "chapters",
+        "descriptions",
+        "metadata",
+        "subtitles"
+      ],
+      "description": "Specifies the kind of text track"
+    },
+    "label": {
+      "value": "text",
+      "description": "Specifies the title of the text track"
+    },
+    "src": {
+      "value": "URL",
+      "description": "Required. Specifies the URL of the track file"
+    },
+    "srclang": {
+      "value": "language_code",
+      "description": "Specifies the language of the track text data (required if kind=\"subtitles\")"
+    }
+  },
+  "var": {
+    "<code>": {
+      "value": [
+        "Defines a piece of computer code"
+      ],
+      "description": ""
+    },
+    "<samp>": {
+      "value": [
+        "Defines sample output from a computer program"
+      ],
+      "description": ""
+    },
+    "<kbd>": {
+      "value": [
+        "Defines keyboard input"
+      ],
+      "description": ""
+    },
+    "<pre>": {
+      "value": [
+        "Defines preformatted text"
+      ],
+      "description": ""
+    }
+  },
+  "video": {
+    "Edge": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Chrome": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Firefox": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Safari": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    },
+    "Opera": {
+      "value": [
+        "YES"
+      ],
+      "description": "YES"
+    }
+  }
+}

@@ -2,25 +2,27 @@ div
   | id("asd")
   | class('element-A', 'elementB')
   | dataset(dname: 'as')
+  | lang("pt")
   section id('assction')
     span id('asspan')
       p
     input id('the-name') dataset(dname: 'Filipe Bento', dphone: 31982741441)
   main
-    header
+    header translate(true)
       div
         video
           img id('user-profile')
-        textarea
+        textarea contenteditable(true)
       select
 header
   div
-    table
-      thead 
-        tr
+    table title("aux-table")
+      thead accesskey("a")
+        tr 
           td
-      tbody 
+      tbody dir("ltr")
         tr
-          th
+          th tabindex(1)
+  title id("car")
     
   

@@ -1,14 +1,12 @@
-import { Token, TokenValueNode, TokenType } from "../../interfaces/tokens.ts";
+import { Token, TokenType } from "../../interfaces/tokens.ts";
 import { AttributeValidatorResult } from "../htmlTagsAttributes.ts";
 
 export function validateDataset(tokens: Token[]): AttributeValidatorResult {
-  if (!tokens.length) return { error: "Attribute 'dataset' should not be empty" }
-
   let current = 0;
 
   // [name] [colon] [value] ?[comma]
   do {
-    const nameToken = tokens[current] as TokenValueNode<TokenType.String>
+    const nameToken = tokens[current]
     const DATASET_NAME_REGEX = /^[a-zA-Z][_\-a-zA-Z]+$/gm
     if (!DATASET_NAME_REGEX.test(nameToken.value)) return {
       token: nameToken,

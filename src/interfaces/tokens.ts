@@ -6,6 +6,7 @@ export enum TokenType {
   Number = "NUMBER",
   Literal = "LIT",
   String = "STR",
+  Text = "TEXT",
   Unity = "UNITY",
 
   LineBreack = "NEW_LINE",
@@ -52,6 +53,7 @@ export type Token =
   TokenNode<TokenType.HTMLTag> |
   TokenNode<TokenType.Number> |
   TokenNode<TokenType.String> |
+  TokenNode<TokenType.Text> |
   TokenNode<TokenType.Literal> |
   TokenNode<TokenType.Unity> |
   TokenNode<TokenType.Indentation> |

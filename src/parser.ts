@@ -1,9 +1,9 @@
 import { HtmlTagsSet } from "./htmlTags/htmlTags.ts";
 import { HtmlTagsAttributesHandlersMap } from "./htmlTags/htmlTagsAttributes.ts";
 import { ASTTagNode, ASTNode, ASTNodeType } from "./interfaces/ast.ts";
-import { Token, TokenType } from "./interfaces/tokens.ts";
+import { Token, TokenNode, TokenType } from "./interfaces/tokens.ts";
 import { ComponentNode } from "./utils/interfaces.ts";
-import { errorInLine } from "./utils/utils.ts";
+import { errorInLine, logWarningInLine } from "./utils/utils.ts";
 
 
 const getPosition = ({ line, col }: Token): Partial<Token> => ({ line, col })
@@ -14,6 +14,8 @@ export function parser(component: ComponentNode): ComponentNode {
 
   const tokens = component.tokens
 
+
+
   function process(tokens: Token[], currentTab = 0): ASTNode[] {
     let current = 0
     const siblingNodes: ASTNode[] = []
@@ -22,6 +24,22 @@ export function parser(component: ComponentNode): ComponentNode {
     if (!tokens.length) return siblingNodes
 
     let children: Token[] = []
+
+    function processHtmlTag(token: Token) {
+      if (expression && children.length > 0) {
+        expression.children = process(children, currentTab + 1)
+        children = []
+      }
+
+      expression = {
+        type: ASTNodeType.HtmlTag,
+        name: token.value,
+        token: getPosition(token),
+      };
+
+      siblingNodes.push(expression)
+    }
+
     while (current < tokens.length) {
       let token = tokens[current]
 
@@ -42,7 +60,15 @@ export function parser(component: ComponentNode): ComponentNode {
         token = tokens[++current]
 
         // Check for right parentesis
-        if (token.type !== TokenType.LeftParentesis) throw errorInLine(token, "Missing '(")
+        if (token?.type !== TokenType.LeftParentesis) {
+          if (!HtmlTagsSet.has(attrNode.value)) throw errorInLine(token ?? attrNode, "Missing '(")
+          const tagToken: Token = {
+            ...attrNode,
+            type: TokenType.HTMLTag
+          }
+          processHtmlTag(tagToken)
+          continue
+        }
 
         const childrenTokens: Token[] = []
 
@@ -62,13 +88,19 @@ export function parser(component: ComponentNode): ComponentNode {
 
         if (token.type !== TokenType.RightParentesis) throw errorInLine(token, "Missing ')'")
 
-        const validationError = attrHandler.validate(childrenTokens)
+        current++
+        if (childrenTokens.length == 0) {
+          console.warn(logWarningInLine(attrNode, `Attibute '${attrNode.value}' shouldn't be empty`))
+          continue
+        }
 
-        if (validationError) throw errorInLine(validationError.token ?? attrNode, validationError.error)
+        if (attrHandler.validators) {
+          const validationError = attrHandler.validators(childrenTokens)
+
+          if (validationError) throw errorInLine(validationError.token ?? attrNode, validationError.error)
+        }
 
         const value: any = attrHandler.parse(childrenTokens)
-
-        current++
 
         if (!expression) throw errorInLine(attrNode, `Attibute '${attrNode.value}' must be inside a html tag`)
 
@@ -107,21 +139,12 @@ export function parser(component: ComponentNode): ComponentNode {
       }
 
       if (token.type == TokenType.HTMLTag) {
-        if (expression && children.length > 0) {
-          expression.children = process(children, currentTab + 1) as ASTTagNode[]
-          children = []
-        }
-
-        expression = {
-          type: ASTNodeType.HtmlTag,
-          name: token.value,
-          token: getPosition(token),
-        };
-
-        siblingNodes.push(expression)
+        processHtmlTag(token)
         current++
         continue
       }
+
+      console.log('error:', token);
 
       throw errorInLine(token, `Literal '${(token.value)}' is unknown`)
     }
